@@ -14,12 +14,6 @@ public class RestClientBuilder {
     private HttpURLConnection http;
     private URLBuilder urlBuilder = new URLBuilder();
 
-    private String METHOD = "";
-    private String METHOD_GET = "GET";
-    private String METHOD_POST = "POST";
-    private String METHOD_PUT = "PUT";
-    private String METHOD_DELETE = "DELETE";
-
     public void addQueryParam(String key, String value) {
         this.urlBuilder.addQueryParam(key, value);
     }
@@ -27,29 +21,21 @@ public class RestClientBuilder {
     public RestClientBuilder addHeader(String key, String value) {
         return this;
     }
+
     public Result post() throws IOException {
-        return new Execute(baseUrl, METHOD_POST).exec();
+        return request(HttpMethod.POST.name());
     }
 
     public Result get() throws IOException {
-        //return new Execute(baseUrl, METHOD_GET).exec();
-        GetRequest getRequest = new GetRequest(baseUrl, METHOD_GET);
-        return getRequest.exec();
+        return request(HttpMethod.GET.name());
     }
 
     public Result put() throws IOException {
-        return new Execute(baseUrl, METHOD_PUT).exec();
+        return request(HttpMethod.PUT.name());
     }
 
     public Result delete() throws IOException {
-        return new Execute(baseUrl, METHOD_DELETE).exec();
-    }
-
-    public RestClientBuilder showTime(Boolean condition) {
-        if (condition) {
-
-        }
-        return this;
+        return request(HttpMethod.DELETE.name());
     }
 
     private String mountURL() {
@@ -73,5 +59,9 @@ public class RestClientBuilder {
 
     public RestClientBuilder json() {
         return this;
+    }
+
+    public Result request(String method) throws IOException {
+        return new Request(this.baseUrl, method).invoke();
     }
 }
