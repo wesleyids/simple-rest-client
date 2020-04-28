@@ -9,8 +9,7 @@ class RealClient {
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
 
-        String rest = new RestClient()
-                .create()
+        String rest = new RestClient().create()
                 .url("https://viacep.com.br/ws/01001000/json/")
                 .get()
                 .getResponse();
