@@ -9,7 +9,7 @@ class RealClient {
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
 
-        example05();
+        example06();
 
         long end = System.currentTimeMillis();
         NumberFormat formatter = new DecimalFormat("#0.00000");
@@ -60,6 +60,15 @@ class RealClient {
     static void example05() throws IOException {
         new RestClient()
                 .create("http://localhost:3000/api/user/5ea82f5ca7a520823b94364b")
+                .get()
+                .call();
+    }
+
+    static void example06() throws IOException {
+        new RestClient()
+                .create("http://localhost:3000/api/user/5ea82f5ca7a520823b94364b")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
                 .get()
                 .call();
     }

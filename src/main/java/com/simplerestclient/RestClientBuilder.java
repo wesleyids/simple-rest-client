@@ -1,14 +1,11 @@
 package com.simplerestclient;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RestClientBuilder {
 
-    private String baseUrl;
-    private Map<String, String> parameters = new HashMap<String, String>();
     private URIBuilder uriBuilder;
+    private HeaderBuilder headerBuilder;
 
     public RestClientBuilder addParam(String key, String value) {
         uriBuilder.addParam(key, value);
@@ -16,6 +13,10 @@ public class RestClientBuilder {
     }
 
     public RestClientBuilder addHeader(String key, String value) {
+        if (headerBuilder == null) {
+            this.headerBuilder = new HeaderBuilder();
+        }
+        headerBuilder.add(key, value);
         return this;
     }
 
@@ -55,6 +56,6 @@ public class RestClientBuilder {
     }
 
     public Result request(String method) throws IOException {
-        return new Request(uriBuilder, method).invoke();
+        return new Request(uriBuilder, headerBuilder, method).invoke();
     }
 }
