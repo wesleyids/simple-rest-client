@@ -9,13 +9,15 @@ public class Result {
 
     private HttpURLConnection http;
 
+    private String host;
+
     Result(HttpURLConnection http) {
         this.http = http;
     }
 
-    <R> R resultTo(Class<R> clazz) throws IOException {
+    String getResponse() throws IOException {
         String body = getBodyResponse();
-        return null;
+        return body;
     }
 
     private String getBodyResponse() throws IOException {

@@ -1,12 +1,8 @@
 package com.simplerestclient;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class RestClient {
 
@@ -16,9 +12,12 @@ public class RestClient {
         long start = System.currentTimeMillis();
 
         String rest = new RestClientBuilder()
-                .url("https://viacep.com.br/ws/01001000/json/")
+//                .url("https://viacep.com.br/ws/01001000/json/")
+                .url()
+                .protocol("http")
+                .builder()
                 .get()
-                .resultTo(String.class);
+                .getResponse();
 
         long end = System.currentTimeMillis();
         NumberFormat formatter = new DecimalFormat("#0.00000");

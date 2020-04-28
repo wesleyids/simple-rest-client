@@ -1,8 +1,6 @@
 package com.simplerestclient;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,12 +8,11 @@ public class RestClientBuilder {
 
     private String baseUrl;
     private Map<String, String> parameters = new HashMap<String, String>();
-    private URL url;
-    private HttpURLConnection http;
-    private URLBuilder urlBuilder = new URLBuilder();
+    private URIBuilder uriBuilder;
 
-    public void addQueryParam(String key, String value) {
-        this.urlBuilder.addQueryParam(key, value);
+    public RestClientBuilder addParam(String key, String value) {
+        uriBuilder.addParam(key, value);
+        return this;
     }
 
     public RestClientBuilder addHeader(String key, String value) {
@@ -52,8 +49,13 @@ public class RestClientBuilder {
         return result.toString();
     }
 
-    public RestClientBuilder url(String baseUrl) {
-        this.baseUrl = baseUrl;
+    public URIBuilder url() {
+        uriBuilder = new URIBuilder(this);
+        return uriBuilder;
+    }
+
+    public RestClientBuilder url(String url) {
+        uriBuilder.url(url);
         return this;
     }
 
@@ -62,6 +64,6 @@ public class RestClientBuilder {
     }
 
     public Result request(String method) throws IOException {
-        return new Request(this.baseUrl, method).invoke();
+        return new Request(uriBuilder, method).invoke();
     }
 }
