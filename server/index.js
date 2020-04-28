@@ -15,6 +15,12 @@ router.get('/user/all', function (req, res, next) {
 
 router.get('/user/:id', function (req, res, next) {
 
+    var header = req.header('Content-Type');
+
+    if (header != "application/json") {
+        return res.status(406).json({});
+    }
+
     var id = req.params.id;
 
     if (isEmpty(id)) {
