@@ -9,6 +9,8 @@ public class URIBuilder {
     private StringBuilder parameters = new StringBuilder();
     private RestClientBuilder restClientBuilder;
 
+    public URIBuilder() {}
+
     public URIBuilder(URIBuilder uriBuilder) {
         this.scheme = uriBuilder.scheme;
         this.domain = uriBuilder.domain;

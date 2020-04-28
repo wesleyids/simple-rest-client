@@ -35,20 +35,6 @@ public class RestClientBuilder {
         return request(HttpMethod.DELETE.name());
     }
 
-    private String mountURL() {
-        StringBuilder result = new StringBuilder();
-
-        if (parameters.size() > 0) {
-            result.append("?");
-        }
-
-//        parameters.forEach((k, v) -> {
-//
-//        });
-
-        return result.toString();
-    }
-
     public URIBuilder url() {
         uriBuilder = new URIBuilder(this);
         return uriBuilder;
@@ -60,7 +46,7 @@ public class RestClientBuilder {
     }
 
     public RestClientBuilder url(String url) {
-        uriBuilder.url(url);
+        this.uriBuilder = new URIBuilder().url(url);
         return this;
     }
 
