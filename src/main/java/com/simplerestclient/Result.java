@@ -9,13 +9,11 @@ public class Result {
 
     private HttpURLConnection http;
 
-    private String host;
-
     Result(HttpURLConnection http) {
         this.http = http;
     }
 
-    String getResponse() throws IOException {
+    String call() throws IOException {
         String body = getBodyResponse();
         return body;
     }

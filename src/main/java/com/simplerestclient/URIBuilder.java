@@ -17,6 +17,7 @@ public class URIBuilder {
         this.domain = uriBuilder.domain;
         this.port = uriBuilder.port;
         this.path = uriBuilder.path;
+        this.parameters = uriBuilder.parameters;
     }
 
     public URIBuilder(RestClientBuilder restClientBuilder) {
@@ -48,7 +49,6 @@ public class URIBuilder {
     }
 
     public URIBuilder path(String path) {
-        if (path == null) throw new NullPointerException("path == null");
         this.path = path;
         return this;
     }
@@ -75,20 +75,41 @@ public class URIBuilder {
 
     public String getURI() {
         if (url != null) {
-            if (parameters.length() > 0) {
-                return url + "?" + parameters;
-            }
-            return url;
+            return withParameters(url);
         }
 
         url = mountURL();
 
         if (url == null) throw new NullPointerException("url == null");
 
-        return url;
+        return withParameters(url);
     }
 
     private String mountURL() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append(scheme);
+        sb.append("://");
+        sb.append(domain);
+        sb.append(":");
+        sb.append(port);
+
+        if (path != null || path != "") {
+            sb.append(path);
+        }
+
+        return sb.toString();
+    }
+
+    private String withParameters(String url) {
+        if (parameters.length() > 0) {
+            String params = parameters.toString();
+
+            // FIXME
+            if (params.endsWith("&")) {
+                params = params.substring(0, params.length()-1);
+            }
+            return String.format("%s?%s", url, params);
+        }
+        return url;
     }
 }
