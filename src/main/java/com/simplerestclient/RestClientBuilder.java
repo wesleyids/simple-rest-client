@@ -54,6 +54,11 @@ public class RestClientBuilder {
         return uriBuilder;
     }
 
+    public RestClientBuilder url(URIBuilder uriBuilder) {
+        this.uriBuilder = new URIBuilder(uriBuilder);
+        return this;
+    }
+
     public RestClientBuilder url(String url) {
         uriBuilder.url(url);
         return this;

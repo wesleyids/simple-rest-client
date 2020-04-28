@@ -11,11 +11,9 @@ public class RestClient {
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
 
-        String rest = new RestClientBuilder()
-//                .url("https://viacep.com.br/ws/01001000/json/")
-                .url()
-                .protocol("http")
-                .builder()
+        String rest = new RestClient()
+                .create()
+                .url("https://viacep.com.br/ws/01001000/json/")
                 .get()
                 .getResponse();
 
@@ -23,5 +21,13 @@ public class RestClient {
         NumberFormat formatter = new DecimalFormat("#0.00000");
         System.out.println("\nExecution time is " + formatter.format((end - start) / 1000d) + " seconds");
 
+    }
+
+    public RestClientBuilder create() {
+        return new RestClientBuilder();
+    }
+
+    public RestClientBuilder create(String url) {
+        return new RestClientBuilder().url(url);
     }
 }

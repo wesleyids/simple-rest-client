@@ -3,11 +3,17 @@ package com.simplerestclient;
 public class URIBuilder {
 
     private String url;
-    private String protocol;
-    private String host;
-    private String path;
+    private String scheme;
+    private String port;
+    private String domain;
     private StringBuilder parameters = new StringBuilder();
     private RestClientBuilder restClientBuilder;
+
+    public URIBuilder(URIBuilder uriBuilder) {
+        this.scheme = uriBuilder.scheme;
+        this.domain = uriBuilder.domain;
+        this.port = uriBuilder.port;
+    }
 
     public URIBuilder(RestClientBuilder restClientBuilder) {
         this.restClientBuilder = restClientBuilder;
@@ -19,21 +25,21 @@ public class URIBuilder {
         return this;
     }
 
-    public URIBuilder protocol(String protocol) {
-        if (protocol == null) throw new NullPointerException("protocol == null");
-        this.protocol = protocol;
+    public URIBuilder scheme(String scheme) {
+        if (scheme == null) throw new NullPointerException("scheme == null");
+        this.scheme = scheme;
         return this;
     }
 
-    public URIBuilder host(String host) {
-        if (host == null) throw new NullPointerException("host == null");
-        this.host = host;
+    public URIBuilder port(String port) {
+        if (port == null) throw new NullPointerException("port == null");
+        this.port = port;
         return this;
     }
 
-    public URIBuilder path(String path) {
-        if (path == null) throw new NullPointerException("path == null");
-        this.path = path;
+    public URIBuilder domain(String domain) {
+        if (domain == null) throw new NullPointerException("domain == null");
+        this.domain = domain;
         return this;
     }
 
@@ -57,7 +63,7 @@ public class URIBuilder {
         return this;
     }
 
-    public String getFullURL() {
+    public String getURI() {
         if (url != null) {
             if (parameters.length() > 0) {
                 return url + "?" + parameters;

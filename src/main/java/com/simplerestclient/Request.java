@@ -18,7 +18,7 @@ public class Request {
     }
 
     public Result invoke() throws IOException {
-        url = new URL(uriBuilder.getFullURL());
+        url = new URL(uriBuilder.getURI());
         http = (HttpURLConnection) url.openConnection();
         http.setRequestMethod(method);
         return new Result(this.http);
