@@ -6,6 +6,7 @@ public class URIBuilder {
     private String scheme;
     private String port;
     private String domain;
+    private String path;
     private StringBuilder parameters = new StringBuilder();
     private RestClientBuilder restClientBuilder;
 
@@ -15,6 +16,7 @@ public class URIBuilder {
         this.scheme = uriBuilder.scheme;
         this.domain = uriBuilder.domain;
         this.port = uriBuilder.port;
+        this.path = uriBuilder.path;
     }
 
     public URIBuilder(RestClientBuilder restClientBuilder) {
@@ -42,6 +44,12 @@ public class URIBuilder {
     public URIBuilder domain(String domain) {
         if (domain == null) throw new NullPointerException("domain == null");
         this.domain = domain;
+        return this;
+    }
+
+    public URIBuilder path(String path) {
+        if (path == null) throw new NullPointerException("path == null");
+        this.path = path;
         return this;
     }
 
