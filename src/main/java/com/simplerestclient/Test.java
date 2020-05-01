@@ -29,7 +29,7 @@ public class Test {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         HeaderBuilder headerBuilder = new HeaderBuilder();
         headerBuilder.add("Content-Type", "application/json");
-        headerBuilder.add(Header.CONTENT_TYPE, "application/json");
+        headerBuilder.add(HttpHeader.CONTENT_TYPE, "application/json");
 
 //        HttpURLConnection headers = headerBuilder.getHeaders();
 

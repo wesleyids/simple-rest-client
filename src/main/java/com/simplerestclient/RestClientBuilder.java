@@ -6,6 +6,7 @@ public class RestClientBuilder {
 
     private URIBuilder uriBuilder;
     private HeaderBuilder headerBuilder;
+    private BodyBuilder bodyBuilder;
 
     public RestClientBuilder addParam(String key, String value) {
         uriBuilder.addParam(key, value);
@@ -51,11 +52,16 @@ public class RestClientBuilder {
         return this;
     }
 
-    public RestClientBuilder json() {
+    public RestClientBuilder json(String body) {
+        this.bodyBuilder = new BodyBuilder().json(body);
         return this;
     }
 
+    public BodyBuilder formData() {
+        return new BodyBuilder();
+    }
+
     public Result request(String method) throws IOException {
-        return new Request(uriBuilder, headerBuilder, method).invoke();
+        return new Request(uriBuilder, headerBuilder, bodyBuilder, method).invoke();
     }
 }
